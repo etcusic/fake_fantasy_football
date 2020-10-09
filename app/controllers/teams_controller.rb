@@ -10,15 +10,20 @@ class TeamsController < ApplicationController
         # user = User.find(session[:user_id])
         # if user.maximum_number_of_teams?
         #    redirect '/errors/ - max number of teams ' 
-        @available_teams = Team.all.select{|team| !team.user_id}
-        erb :"teams/new"
+
+        if current_user.maximum_number_of_teams?
+            redirect '/max_teams'
+        else
+            @available_teams = Team.all.select{|team| !team.user_id}
+            erb :"teams/new"
+        end
     end
 
     post '/teams/new' do
         # CHECK IF NO TEAM WAS SUBMITTED
         # CHECK IF USER HAS MAX AMOUNT OF TEAMS!!!
         @team = Team.find_by_id(params[:id])
-        @team.user_id = session[:user_id]
+        @team.user_id = current_user.id
         @team.location = params[:location]
         @team.slogan = params[:slogan]
         @team.save
@@ -27,16 +32,18 @@ class TeamsController < ApplicationController
     end
 
     get '/teams/new_from_scratch' do
-        erb :"teams/new_from_scratch"
+        if current_user.maximum_number_of_teams?
+            redirect '/max_teams'
+        else
+            erb :"teams/new_from_scratch"
+        end
     end
 
     post '/teams/new_from_scratch' do
         # CHECK IF NO TEAM WAS SUBMITTED
         # CHECK IF PLAYER HAS MAX AMOUNT OF TEAMS!!!
-        binding.pry
         @team = Team.create(params)
-        @team.user_id = session[:user_id]
-        @team.id = Team.all.length + 1
+        @team.user_id = current_user.id
         @team.save
         # erb :"players/add_players"
         redirect "/teams/#{ @team.id }"
@@ -53,7 +60,7 @@ class TeamsController < ApplicationController
 
     get '/teams/:id/edit' do
         @team = Team.find(params[:id])
-        if not_users_stuff?
+        if @team.user_id != current_user.id
             erb :"nachos/nacho_stuff"
         else
             erb :"teams/edit"

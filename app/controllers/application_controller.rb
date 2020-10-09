@@ -27,7 +27,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def not_users_stuff?
-      session[:user_id] != params[:id].to_i
+      current_user.id != params[:id].to_i
     end
 
     def redirect_if_not_logged_in

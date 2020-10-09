@@ -17,4 +17,9 @@ class ErrorsController < ApplicationController
         @user = current_user
         erb :'errors/delete_profile'
     end
+
+    get '/max_teams' do 
+        @user = current_user
+        erb :'errors/max_teams'
+    end
 end

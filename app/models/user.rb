@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
     
     def maximum_number_of_teams?
         user_teams = Team.all.select{|team| team.user_id == self.id}
-        user_teams.length >= 4
+        user_teams.length >= 5
     end
 
     # def all_teams
