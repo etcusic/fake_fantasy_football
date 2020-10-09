@@ -1,0 +1,60 @@
+<img class="logo" src="<%= @team.logo %>">
+
+<h1>Add players to <%= @team.name %></h1>
+
+<form method="POST" action="/players/add_drop">
+    <table>
+        <tr>
+            <th class="position-group">Position Group</th>
+            <th class="add-drop-players">Players</th>
+        <tr>
+        <tr>
+            <td>Quarterbacks</td>
+            <td>
+                <select>
+                    <option>  </option>
+                    <% @qbs.each do |player| %>
+                        <option><%= player.name %></option>
+                    <% end %>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Running Backs</td>
+            <td>
+                <select>
+                    <option>  </option>
+                    <% @rbs.each do |player| %>
+                        <option><%= player.name %></option>
+                    <% end %>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Wide Receivers</td>
+            <td>
+                <select>
+                    <option>  </option>
+                    <% @wrs.each do |player| %>
+                        <option><%= player.name %></option>
+                    <% end %>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Kickers</td>
+            <td>
+                
+                <select>
+                    <option>  </option>
+                    <% @kickers.each do |player| %>
+                        <option><%= player.name %></option>
+                    <% end %>
+                </select>
+            </td>
+        </tr>
+        
+    </table><br>
+
+    <input type="submit" value="Submit"><br><br>
+</form>

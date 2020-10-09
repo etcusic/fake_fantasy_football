@@ -1,0 +1,9 @@
+<h1>ARE YOU SURE YOU WANT TO</h1> 
+<h1>DELETE YOUR PROFILE <%= @user.name %>???</h1><br><br>
+
+<a href="/users/<%= @user.id %>"><button>No. I must win the Shiva!</button></a><br><br><br>
+
+<form method="POST" action="/users/<%= @user.id %>">
+    <input id="hidden" type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Yes. This is a ridiculous place, and I would very much like to leave and be done with you people.">
+</form><br><br><br>

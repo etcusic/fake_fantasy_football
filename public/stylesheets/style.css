@@ -1,0 +1,53 @@
+.logo {
+    float: right;
+}
+
+#welcome_header {
+    text-align: center;
+    font-size: 50px;
+}
+
+
+#left-buttons {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+}
+
+#right-buttons {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
+
+#landing_page_title {
+    padding-bottom: 25px;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#user-edit-options {
+    display: inline-block;
+}
+
+.table-header {
+    text-align: left;
+}
+
+.position-group {
+    text-align: left;
+    width: 150px;
+}
+
+.add-drop-players {
+    text-align: left;
+    width: 600px;
+}
+
+.center-page {
+    text-align: center;
+}

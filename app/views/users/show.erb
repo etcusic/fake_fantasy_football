@@ -1,0 +1,25 @@
+<%# SHOW A DIFFERENT VIEW IF SESSION_ID DOES NOT MATCH USERS/:ID %>
+
+<img class="logo" src="<%= @user.photo_url %>" alt="user photo">
+<h1>Welcome to your homepage <%= @user.name %>!</h1>
+<br>
+
+<h2><%= @user.name %> teams:</h2>
+<ul>
+    <% @user_teams.each do |team| %>
+        <li><a href="/teams/<%= team.id %>"><h3><%= team.location %> <%= team.name %></h3></a></li>
+    <% end %>
+</ul>
+<br><br>
+
+<div id="user-edit-options">
+    <h3>Create new team here:  <a href="/teams/new"><button>Create</button></a>
+    -- OR --
+    <a href="/users/<%= @user.id %>/edit"><button>Edit Profile</button></a>
+    -- OR --
+    <a href="/logout"><button>Logout</button></a>
+    </h3>
+</div>
+<br><br>
+
+<%# User.find(2).photo_url = "/seed_user_photos/jenny.jpg" %>

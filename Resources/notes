@@ -1,0 +1,103 @@
+NOTES
+
+Desktop/Coding_Projects/Ruby/projects/flatiron_project2/sinatra_project
+
+Areas to review/improve:
+- Interact with DB via the command line and rake
+- Use tux to test our app 
+- Securing Passwords & User Authentication
+    - #authenticate => Active Record (I think?)
+- Mechanics of Sessions
+    - Session_secret => environment variable?
+    - bcrypt => salting & hashing
+- CRUD architecture in Controllers
+- What are RESTful routes => Respresentation State Transfer (convention of file/route structure)
+- Actively change Class attributes with Active Record methods (ID problem)
+- Seed users using faker
+
+- Nested Forms?
+
+TESTING:
+[] CAN CREATE A NEW USER
+[] Redirection if logged in/out
+[] Cannot create new user with a username that already exists
+[] Cannot create new user without username and password
+[] User cannot edit/delete a page that is not their own
+[] User cannot edit/delete a team that is not their own
+[] Verify team before add/drop players
+[] Team must have a full roster
+[] User cannot create teams beyond max number (4 teams max per user)
+[] User profiles look different than if not logged in as that user (foreign user profiles)
+[] (*) required fields for "new" users/teams
+[] Warnings for edit pages - insert current data into edit pages as well
+[] Make sure sessions enabled after signup
+[] Simplify code with class/instance methods
+[] Schema - teams_table => logo / logo_url
+[] Create new players
+[] Nothing unused in Files - config.ru, Rakefile, etc
+[] delete tables and reseed seeds.rb (without id assignment)
+
+ERROR MESSAGES:
+[] Sign up when already logged in
+[] Trying to access user pages when not logged in
+[] Trying to edit a different users page
+[] Maximum number of teams has already been reached
+[] 
+
+
+
+user = User.create(:name => "Trisha", :username => "trisha@test", password: "password")
+
+
+Views (all .erb files):
+    |
+    |---Owner
+    |     |--- login
+    |     |--- new (create a new owner)
+    |     |--- show
+    |     |--- edit
+    |
+    |---Vet
+          |--- login
+          |--- new (create a new vet)
+          |--- show
+          |--- edit
+
+Controllers (Should be able to use same structure for both)
+get '/login' do 
+    erb :'owners/login'
+end
+
+post '/login' do 
+    # code here
+    redirect "/owners/#{ session[:user_id] }"
+end
+
+get '/owners/new' do 
+    erb :'owners/new'
+end
+
+post '/owners' do 
+    # code here
+    redirect "owners/#{ session[:user_id] }"
+end
+
+get 'owners/:id' do  
+    # code here
+    erb :'owners/show'
+end 
+
+get 'owners/:id/edit' do
+    # code here
+    erb :'owners/edit'
+end
+
+patch 'owners/:id' do
+    # code here
+    redirect "owners/#{ session[:user_id] }"
+end
+
+delete 'owners/:id' do 
+    # code here
+    redirect "owners/#{ session[:user_id] }"
+end

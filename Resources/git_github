@@ -1,0 +1,27 @@
+GIT / GITHUB
+
+mkdir new_folder  #=> make new directory/folder
+cd new_folder     #=> put terminal into that folder
+git init          #=> initializes the directory/folder to work with git
+
+touch new_document     #=> creates a file/document 
+git add new_document   #=> adds file to list of files that git is tracking
+git add .           #=> Capture all changes in a directory 
+
+****************
+Attaching directory to github
+- Create directory and initialize (git init)
+- Create new repository on github
+- Attach directory to Github repository 
+    - git remote add origin git@github.com:etcusic/sinatra_project.git
+-Make a commit
+
+****************
+3 stages for commits:
+- git add file_name
+- git commit -m "This is the message for the commit"
+- git push         #=> pushes onto github
+
+
+
+git remote -v    #=> gives the github file source. ex: git@github.com:etcusic/hopefully_this_works.git

@@ -1,0 +1,29 @@
+<h1>CREATE A NEW PLAYER:</h1>
+
+<form method="POST" action="/players">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" name="name"></td>
+        </tr>
+        <tr>
+            <td>School:</td>
+            <td><input type="text" name="school"></td>
+        </tr>
+        <tr>
+            <td>Position:</td>
+            <td>
+                <select name="position">
+                    <option value=" ">Select a position</option>
+                    <option value="QB">Quarterback</option>
+                    <option value="RB">Running Back</option>
+                    <option value="WR">Wide Receiver</option>
+                    <option value="K">Kicker</option>
+                </select>
+            </td>
+        </tr>
+    </table><br>
+
+    <input type="submit" value="Create Player"><br><br>
+</form>
+

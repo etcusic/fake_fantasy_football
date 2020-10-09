@@ -1,0 +1,18 @@
+<img class="logo" src="<%= @team.logo %>">
+
+<h1><%= @team.name %></h1>
+
+<h2>Slogan: "<%= @team.slogan %>"</h2>
+
+<h2>Players:</h2>
+<h3>
+<table>
+    <% @team.roster_array.each do |player| %>
+        <tr>
+            <td><%= player.position%></td>
+            <td><%= player.name %></td>
+            <td><%= player.school %></td> 
+        </tr>      
+    <% end %>
+</table>
+</h3>

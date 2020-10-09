@@ -1,0 +1,13 @@
+<img class="logo" src="<%= @user.photo_url %>" alt="user photo">
+<h1><%= @user.name %></h1>
+<br>
+
+<h2><%= @user.name %> teams:</h2>
+<% @user_teams.each do |team| %>
+    <a href="/teams/<%= team.id %>"><h3><%= team.location %> <%= team.name %></h3></a>
+<% end %>
+<br><br>
+
+<h2>Christmas wish: <%= @user.what_you_want_for_christmas %> </h2><br><br>
+
+<a href="/users/<%= @not_user.id %>"><h3>Your Home Page</h3></a>

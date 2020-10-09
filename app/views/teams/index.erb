@@ -1,0 +1,16 @@
+<h1>All Teams with Owners</h1>
+
+<h3>
+<table id="team-index">
+    <th><tr><td>Teams:</td><td>Owners:</td></tr></th>
+<% @teams.each do |team| %>
+    <% if team.owner %>
+        <tr>
+            <td><a href="/teams/<%= team.id %>"><%= team.location %> <%= team.name %></a></td>  
+            <td><a href="/users/<%= team.user_id %>"><%= team.owner.name %></a></td>
+        </tr>
+    <% end %>
+<% end %>
+</table></h3>
+
+<button><a href="/players">List of players</a></button><br><br>

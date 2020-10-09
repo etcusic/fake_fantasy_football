@@ -1,0 +1,20 @@
+<img class="logo" src="<%= @team.logo %>">
+
+<h1><%= @team.location.upcase %> <%= @team.name.upcase %> HOME PAGE!</h1>
+
+<h2>"<%= @team.slogan %>"</h2>
+
+<h3>
+<table>
+    <th><tr><td>Position:</td><td>Name:</td><td>School:</td></tr></th>
+    <% @team.players.each do |player|%>
+        <tr>
+            <td><%= player.position %></td>
+            <td><%= player.name %></td>
+            <td><%= player.school %></td>
+        </tr>
+    <% end %>
+</table>
+</h3>
+
+<a href="/teams/<%= @team.id %>/edit"><button>Edit Team</button></a><br><br>

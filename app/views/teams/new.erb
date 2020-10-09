@@ -1,0 +1,33 @@
+<h2>ADOPT A TEAM:</h2>
+
+<form method="POST" action="/teams/new">
+    
+    <table>
+        <tr>
+            <td>Select Team:</td>
+            <td><select>
+                <% @available_teams.each do |team| %>
+                    <option><%= team.name %></option>
+                <% end %><br>
+            </select></td>
+        </tr>
+        <tr>
+            <td>Add Location: </td>  
+            <td><input type="text" name="location"></td>
+        </tr>
+        <tr>
+            <td>Add Slogan: </td>  
+            <td><input type="text" name="slogan"></label></td>
+        </tr>
+    </table><br>
+
+    <input type="submit" value="Submit"><br>
+
+</form><br>
+
+<h3> -- OR -- </h3><br>
+
+
+<a href="/teams/new_from_scratch"><button>Create from Scratch</button></a><br><br>
+
+<div class="add-players">

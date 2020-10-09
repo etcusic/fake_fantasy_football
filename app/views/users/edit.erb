@@ -1,0 +1,57 @@
+<h1>Edit yo stuff here!</h1>
+
+<form method="POST" action="/users/<%= @user.id %>">
+    <input id="hidden" type="hidden" name="_method" value="PATCH">
+
+    <table>
+        <tr>
+            <td><label>Full Name: </label></td>
+            <td><input type="text" name="name" value="<%= @user.name %>"></td>
+        </tr>    
+        
+        <tr>
+            <td><label>Username: </label></td>
+            <td><input type="text" name="username" value="<%= @user.username %>"></td>
+        </tr>
+
+        <tr>
+            <td><label>Password: </label></td>
+            <td><input type="password" name="password" value="<%= @user.password %>"></td>
+        </tr>
+
+        <tr>
+            <td><label>Social Security Number: </label></td>
+            <td><input type="number" name="ssn" value="<%= @user.ssn %>"></td>
+        </tr>
+
+        <tr>
+            <td><label>Credit card information: </label></td>
+            <td><input type="number" name="credit_card_info" value="<%= @user.credit_card_info %>"></td>
+        </tr>
+
+        <tr>
+            <td><label>Deepest darkest secret: </label></td>
+            <td><input type="text" name="deepest_darkest_secret" value="<%= @user.deepest_darkest_secret %>"></td>
+        </tr>
+
+        <tr>
+            <td><label>What you want for Christmas: </label></td>
+            <td><input type="text" name="what_you_want_for_christmas" value="<%= @user.what_you_want_for_christmas %>"></td>
+        </tr>
+            
+        <tr>
+            <td><label>New Photo Url</label></td>
+            <td><input type="text" name="photo_url" value="<%= @user.photo_url %>"></td>
+        </tr>
+    </table><br><br>
+    <input type="submit" name="edit_button" value="submit changes">
+    
+</form>
+
+<h3>-- OR --</h3>
+    
+<form method="POST" action="/users/<%= @user.id %>">
+    <input id="hidden" type="hidden" name="_method" value="PATCH">
+    <input type="submit" name="delete_button" value="Delete Profile :(">
+</form>
+<br><br>
