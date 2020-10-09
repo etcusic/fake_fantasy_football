@@ -5,9 +5,9 @@
     <table>
         <tr>
             <td>Select Team:</td>
-            <td><select>
+            <td><select name="id">
                 <% @available_teams.each do |team| %>
-                    <option><%= team.name %></option>
+                    <option value=<%= team.id %>><%= team.name %></option>
                 <% end %><br>
             </select></td>
         </tr>

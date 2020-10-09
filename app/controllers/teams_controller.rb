@@ -17,7 +17,7 @@ class TeamsController < ApplicationController
     post '/teams/new' do
         # CHECK IF NO TEAM WAS SUBMITTED
         # CHECK IF USER HAS MAX AMOUNT OF TEAMS!!!
-        @team = Team.find(params.keys[0])
+        @team = Team.find_by_id(params[:id])
         @team.user_id = session[:user_id]
         @team.location = params[:location]
         @team.slogan = params[:slogan]
