@@ -33,18 +33,26 @@ CHECKLIST
 
 Specs:
 [x] Use Sinatra to build the app
-    - Self explanatory
+    - Check
 [x] Use ActiveRecord for storing information in a database
+    - Check
 [x] Include more than one model class (e.g. User, Post, Category)
+    - I have a User, Team, and Player class. 
 [x] Include at least one has_many relationship on your User model (e.g. User has_many Posts)
+    - A user has_many teams, and a team has_many players
 [x] Include at least one belongs_to relationship on another model (e.g. Post belongs_to User)
+    - A team belongs_to a user, and a player belongs_to a team
 [x] Include user accounts with unique login attribute (username or email)
+    - Check
 [x] Ensure that the belongs_to resource has routes for Creating, Reading, Updating and Destroying
+    - Check. Also included full CRUD functionality for User
 [x] Ensure that users can't modify content created by other users
+    - Mr McGibblets has solemnly vowed not to let any malfeasance occur in the application. Test him at your own risk.
 [x] Include user input validations
+    - Check
 [ ] BONUS - not required - Display validation failures to user with error message (example form URL e.g. /posts/new)
-[ ] BONUS - not required - Create a visual model of Controller/Route construction
 [x] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
+    - Check
 
 Confirm:
 [x] You have a large number of small Git commits
