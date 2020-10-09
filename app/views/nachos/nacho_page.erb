@@ -10,4 +10,6 @@
 
 <h2>Christmas wish: <%= @user.what_you_want_for_christmas %> </h2><br><br>
 
-<a href="/users/<%= @not_user.id %>"><h3>Your Home Page</h3></a>
+<% if @not_user %>
+    <a href="/users/<%= @not_user.id %>"><h3>Your Home Page</h3></a>
+<% end %>

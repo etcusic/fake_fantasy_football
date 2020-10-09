@@ -16,7 +16,7 @@ class TeamsController < ApplicationController
 
     post '/teams/new' do
         # CHECK IF NO TEAM WAS SUBMITTED
-        # CHECK IF PLAYER HAS MAX AMOUNT OF TEAMS!!!
+        # CHECK IF USER HAS MAX AMOUNT OF TEAMS!!!
         @team = Team.find(params.keys[0])
         @team.user_id = session[:user_id]
         @team.location = params[:location]
@@ -43,8 +43,6 @@ class TeamsController < ApplicationController
     end
 
     get '/teams/:id' do
-        # verify it is user's team
-        # binding.pry
         @team = Team.find_by_id(params[:id])
         if @team.user_id == session[:user_id]
             erb :"teams/show"

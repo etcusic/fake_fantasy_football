@@ -128,23 +128,53 @@ PLAYERS = [
     ["A.A. Ron Rodgers", "Cal"]
 ]
 
+SECRETS = []
+CHRISTMAS = []
+CITIES = []
+SLOGANS = []
+
+25.times do
+    SECRETS << Faker::Quotes::Shakespeare.king_richard_iii_quote
+end
+
+25.times do
+    CHRISTMAS << Faker::Appliance.equipment
+end
+
+25.times do
+    CITIES << Faker::Nation.capital_city
+end
+
+25.times do
+    SLOGANS << Faker::Movie.quote
+end
+
+secrets = SECRETS.uniq
+gifts = CHRISTMAS.uniq
+cities = CITIES.uniq
+slogans = SLOGANS.uniq
 
 # SEED USERS
-LEAGUE_MEMBERS.each do |user|
+LEAGUE_MEMBERS.each.with_index do |user, i|
     new_user = User.create(user)
     new_user.update(
         ssn: Faker::Number.number(digits: 2),
         credit_card_info: Faker::Number.number(digits: 3),
-        deepest_darkest_secret: Faker::Quotes::Shakespeare.king_richard_iii_quote,
-        what_you_want_for_christmas: Faker::Appliance.equipment
+        deepest_darkest_secret: secrets[i],
+        what_you_want_for_christmas: gifts[i]
     )
 end
 
 # SEED TEAMS
-TEAMS.each.with_index do |team|   
+TEAMS.each.with_index do | team, i |
     new_team = Team.create(team)
-    new_team.update(location: Faker::Nation.capital_city, slogan: Faker::Movie.quote)
-    new_team
+    if i < LEAGUE_MEMBERS.length
+        new_team.update(
+            location: cities[i], 
+            slogan: slogans[i],
+            user_id: (i + 1)
+        )
+    end
 end
 
 # HELPERS FOR SEED PLAYERS
@@ -169,9 +199,4 @@ ARRAY.each do |array|
         end
         player
     end
-end
-
-
-Team.all[0..7].each do |team|
-    team.user_id = team.id
 end

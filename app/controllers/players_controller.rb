@@ -15,15 +15,6 @@ class PlayersController < ApplicationController
         erb :'/players/add_and_drop'
     end
 
-    get '/players/new' do
-        erb :"players/new"
-    end
-
-    post '/players' do
-        Player.create(params)
-        redirect "/users/#{current_user.id}"
-    end
-
     post '/players/add_and_drop' do
         # binding.pry
 
