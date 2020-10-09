@@ -19,8 +19,8 @@ TEAMS = [
     {name: "Dandy Fishies", logo: "/logos/dandy_fishies.png"},
     {name: "Grumpy Cats", logo: "/logos/grumpy_cats.png"},
     {name: "Heismanbergs", logo: "/logos/heismanbergs.jpg"},
-    {name: "Sad Frogs", logo: "/sad_frogs.jpeg"},
-    {name: "Nordic Hipsters", logo: "/nordic_hipsters.jpeg"},
+    {name: "Sad Frogs", logo: "/logos/sad_frogs.jpeg"},
+    {name: "Nordic Hipsters", logo: "/logos/nordic_hipsters.jpeg"},
     {name: "Karens", logo: "/logos/karens.jpg"},
     {name: "Prancy Horsies", logo: "/logos/prancy_horsies.png"},
     {name: "Punch Lines", logo: "/logos/punch_lines.png"},
@@ -169,4 +169,9 @@ ARRAY.each do |array|
         end
         player
     end
+end
+
+
+Team.all[0..7].each do |team|
+    team.user_id = team.id
 end
