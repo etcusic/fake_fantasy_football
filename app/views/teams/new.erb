@@ -7,19 +7,20 @@
             <td>Select Team:</td>
             <td><select name="id">
                 <% @available_teams.each do |team| %>
-                    <option value=<%= team.id %>><%= team.name %></option>
+                    <option value=<%= team.id %>><%= team.location %> <%= team.name %></option>
                 <% end %><br>
             </select></td>
         </tr>
-        <tr>
-            <td>Add Location: </td>  
-            <td><input type="text" name="location"></td>
-        </tr>
+        
         <tr>
             <td>Add Slogan: </td>  
             <td><input type="text" name="slogan"></label></td>
         </tr>
     </table><br>
+
+<h2>Add Players:</h2>
+    
+    <%= erb :"players/availabe_players" %><br>
 
     <input type="submit" value="Submit"><br>
 
