@@ -2,10 +2,9 @@
 
 <h1>Edit <%= @team.name %></h1>
 
-<form method="POST" action="/teams/<%= @team.id %>/edit">
+<form method="POST" action="/teams/<%= @team.id %>">
+    <input id="hidden" type="hidden" name="_method" value="PATCH">
     <table>
-        <input id="hidden" type="hidden" name="_method" value="PATCH">
-
         <tr>
             <td>Location: </td>
             <td><input type="text" name="location" value="<%= @team.location %>"></td>
@@ -29,7 +28,7 @@
 
 <h3>-- OR --</h3><br>
     
-<form method="POST" action="/teams/<%= @team.id %>/delete">
+<form method="POST" action="/teams/<%= @team.id %>">
     <input id="hidden" type="hidden" name="_method" value="DELETE">
     <input type="submit" value="Delete Team">
 </form>

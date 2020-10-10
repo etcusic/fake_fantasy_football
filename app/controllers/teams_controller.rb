@@ -22,6 +22,7 @@ class TeamsController < ApplicationController
     post '/teams/new' do
         # CHECK IF NO TEAM WAS SUBMITTED
         # CHECK IF USER HAS MAX AMOUNT OF TEAMS!!!
+        # CHECK IF TEAM NAME OR LOCATION IS SAME ANOTHER ONE
         @team = Team.find_by_id(params[:id])
         @team.user_id = current_user.id
         @team.location = params[:location]
@@ -45,8 +46,8 @@ class TeamsController < ApplicationController
         @team = Team.create(params)
         @team.user_id = current_user.id
         @team.save
-        # erb :"players/add_players"
-        redirect "/teams/#{ @team.id }"
+        erb :"players/add_players"
+        # redirect "/teams/#{ @team.id }"
     end
 
     get '/teams/:id' do
@@ -68,8 +69,9 @@ class TeamsController < ApplicationController
     end
 
     patch '/teams/:id' do
+        # binding.pry
+        # VERIFY NAME AND LOCATION UPON SUBMISSION
         @team = Team.find(params[:id])
-        #needs verification!
         if @team
             @team.update(
                 name: params[:name],
@@ -77,9 +79,8 @@ class TeamsController < ApplicationController
                 slogan: params[:slogan]
             )
             redirect "/teams/#{@team.id}"
-        # error redirection needs to be worked out    
-        # else
-        #     erb :"errors/"
+        else
+            erb :"errors/team_error"
         end
     end
 

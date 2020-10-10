@@ -137,7 +137,7 @@ SLOGANS = []
     SECRETS << Faker::Quotes::Shakespeare.king_richard_iii_quote
 end
 
-25.times do
+15.times do
     CHRISTMAS << Faker::Appliance.equipment
 end
 
@@ -168,9 +168,9 @@ end
 # SEED TEAMS
 TEAMS.each.with_index do | team, i |
     new_team = Team.create(team)
+    new_team.update(location: cities[i])
     if i < LEAGUE_MEMBERS.length
-        new_team.update(
-            location: cities[i], 
+        new_team.update( 
             slogan: slogans[i],
             user_id: (i + 1)
         )

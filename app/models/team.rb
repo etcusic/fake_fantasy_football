@@ -3,7 +3,8 @@ class Team < ActiveRecord::Base
     belongs_to :user
     has_many :players
 
-    validates :name, presence: true
+    validates :name, :location, presence: true
+    validates :name, :location, uniqueness: true
     
     def self.under_capacity?
         self.all.count <= 12
