@@ -194,7 +194,7 @@ ARRAY.each do |array|
             school: arr[1],
             position: arr[2]
         })
-        if i < 8
+        if i < LEAGUE_MEMBERS.length
            player.update(team_id: i + 1)
         end
         player

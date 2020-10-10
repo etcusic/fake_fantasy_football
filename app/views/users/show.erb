@@ -6,7 +6,7 @@
 
 <h2><%= @user.name %> teams:</h2>
 <ul>
-    <% @user_teams.each do |team| %>
+    <% @user.teams.each do |team| %>
         <li><a href="/teams/<%= team.id %>"><h3><%= team.location %> <%= team.name %></h3></a></li>
     <% end %>
 </ul>

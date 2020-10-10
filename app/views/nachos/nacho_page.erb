@@ -3,7 +3,7 @@
 <br>
 
 <h2><%= @user.name %> teams:</h2>
-<% @user_teams.each do |team| %>
+<% @user.teams.each do |team| %>
     <a href="/teams/<%= team.id %>"><h3><%= team.location %> <%= team.name %></h3></a>
 <% end %>
 <br><br>

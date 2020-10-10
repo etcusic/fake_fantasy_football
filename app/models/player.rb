@@ -4,7 +4,8 @@ class Player < ActiveRecord::Base
 
     validates :name, :school, :position, presence: true
     validates :name, uniqueness: true
-    
+
+
     def self.waivers
         self.all.select{| player | !player.team_id}
     end

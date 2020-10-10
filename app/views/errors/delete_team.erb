@@ -1,0 +1,8 @@
+<img class="logo" src="<%= @team.logo %>">
+
+<h1>Are you sure you want to delete <%= @team.name %>???</h1>
+
+<form method="POST" action="/teams/<%= @team.id %>">
+    <input id="hidden" type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete Team">
+</form><br><br>

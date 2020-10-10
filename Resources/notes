@@ -34,6 +34,7 @@ TESTING:
 [] Simplify code with class/instance methods
 [] Schema - teams_table => logo / logo_url
 [] Create new players
+[] DRY - reuse players table from one file to another
 [] Nothing unused in Files - config.ru, Rakefile, etc
 [] delete tables and reseed seeds.rb (without id assignment)
 

@@ -44,7 +44,7 @@
             <td><input type="text" name="photo_url" value="<%= @user.photo_url %>"></td>
         </tr>
     </table><br><br>
-    <input type="submit" name="edit_button" value="submit changes">
+    <input type="submit" name="button" value="edit">
     
 </form>
 
@@ -52,6 +52,6 @@
     
 <form method="POST" action="/users/<%= @user.id %>">
     <input id="hidden" type="hidden" name="_method" value="PATCH">
-    <input type="submit" name="delete_button" value="Delete Profile :(">
+    <input type="submit" name="button" value="delete">
 </form>
 <br><br>
