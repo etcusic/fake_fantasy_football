@@ -42,6 +42,17 @@ class ApplicationController < Sinatra::Base
       end
     end
 
+    def assign_players_to_team(player_id_array, team)
+      # binding.pry
+      player_id_array.each{|id| Player.find_by_id(id).update(team_id: team.id)}
+    end
+  
+    # def render path
+    #   content = File.read(File.expand_path(path))
+    #   t = ERB.new(content)
+    #   t.result(binding)
+    # end
+
   end
 
 end

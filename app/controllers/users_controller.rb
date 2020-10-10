@@ -9,9 +9,10 @@ class UsersController < ApplicationController
     end
     
     post '/users' do
-        # CHECK FOR VALID INPUTS AND REDIRECT TO SIGNUP ERROR PAGE
         @user = User.new(params)
-        if @user && @user.save
+        if params[:name] == "" || params[:username] == "" || params[:password] == ""
+            redirect '/signup_error'       
+        elsif @user && @user.save   
             session[:user_id] = @user.id
             redirect "/users/#{@user.id}"
         else
@@ -19,15 +20,13 @@ class UsersController < ApplicationController
         end
     end
 
-    get '/users/:id' do     
-            @user = User.find_by_id(params[:id])
-            @user_teams = Team.all.select{|team| team.user_id == @user.id}
-        # 2 different views for if user page doesn't match logged in user
-        if not_users_stuff?   #params[:id].to_i == session[:user_id]  
+    get '/users/:id' do    
+        @user = User.find_by_id(params[:id])
+        if params[:id].to_i == session[:user_id]  
+            erb :"users/show"
+        else
             @not_user = User.find_by_id(session[:user_id])
             erb :"nachos/nacho_page"
-        else
-            erb :"users/show"
         end
     end
 
@@ -41,11 +40,14 @@ class UsersController < ApplicationController
     end
 
     patch "/users/:id" do
+         binding.pry
         # warn user of updating 
-        binding.pry
-        @user = User.find_by_id(params[:id])
-        if @user.id && params[:edit_button] 
-            @user.update(
+        button = params[:button]
+        params.delete("button")
+        params.delete("_method")
+        # binding.pry
+        if button == "edit" # params[:edit_button] 
+            current_user.update(
                 name: params[:name],
                 username: params[:username],
                 password: params[:password],
@@ -55,15 +57,16 @@ class UsersController < ApplicationController
                 deepest_darkest_secret: params[:deepest_darkest_secret],
                 what_you_want_for_christmas: params[:what_you_want_for_christmas]
             )
-            redirect "/users/#{@user.id}"
-        elsif params[:delete_button]
+            redirect "/users/#{current_user.id}"
+        elsif button == "delete" # params[:delete_button]
             redirect "/delete?"
         else
-            redirect "/users/#{@user.id}"
+            redirect "/users/#{current_user.id}"
         end
     end
 
     delete "/users/:id" do
+        #  binding.pry
         @user = User.find(params[:id])
         @user.delete
         redirect "/"

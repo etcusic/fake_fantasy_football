@@ -1,16 +1,18 @@
 class TeamsController < ApplicationController
 
     get '/teams' do
+        #  binding.pry
         @users = User.all
         @teams = Team.all
         erb :"teams/index"
     end
 
     get '/teams/new' do
+        #  binding.pry
         # user = User.find(session[:user_id])
         # if user.maximum_number_of_teams?
         #    redirect '/errors/ - max number of teams ' 
-
+        @available_players = Player.all.select{|player| !player.team_id}
         if current_user.maximum_number_of_teams?
             redirect '/max_teams'
         else
@@ -20,15 +22,17 @@ class TeamsController < ApplicationController
     end
 
     post '/teams/new' do
+         binding.pry
         # CHECK IF NO TEAM WAS SUBMITTED
         # CHECK IF USER HAS MAX AMOUNT OF TEAMS!!!
         # CHECK IF TEAM NAME OR LOCATION IS SAME ANOTHER ONE
         @team = Team.find_by_id(params[:id])
-        @team.user_id = current_user.id
-        @team.location = params[:location]
-        @team.slogan = params[:slogan]
-        @team.save
-        # erb :"players/add_players"
+        @team.update(
+            user_id: current_user.id,
+            slogan: params[:slogan]
+        )
+        players_array = [params[:qb], params[:rb], params[:wr], params[:te], params[:k]]
+        assign_players_to_team(players_array, @team)
         redirect "/teams/#{ @team.id }"
     end
 
@@ -36,18 +40,30 @@ class TeamsController < ApplicationController
         if current_user.maximum_number_of_teams?
             redirect '/max_teams'
         else
+            @available_players = Player.all.select{|player| !player.team_id}
             erb :"teams/new_from_scratch"
         end
     end
 
     post '/teams/new_from_scratch' do
-        # CHECK IF NO TEAM WAS SUBMITTED
-        # CHECK IF PLAYER HAS MAX AMOUNT OF TEAMS!!!
-        @team = Team.create(params)
-        @team.user_id = current_user.id
-        @team.save
-        erb :"players/add_players"
-        # redirect "/teams/#{ @team.id }"
+         
+        # CHECK IF CORRECT AMOUNT OF PLAYERS/ATTRS SUBMITTED
+        
+        @team = Team.create(
+            name: params[:name],
+            location: params[:location],
+            slogan: params[:slogan],
+            logo: "/logos/your_logo_here.png",
+            user_id: current_user.id
+        )
+        players_array = [params[:qb], params[:rb], params[:wr], params[:te], params[:k]]
+        binding.pry
+        if players_array.include?("invalid")
+            redirect "/errors/team_error"
+        else
+            assign_players_to_team(players_array, @team)
+        end
+        redirect "/teams/#{ @team.id }"
     end
 
     get '/teams/:id' do
@@ -60,6 +76,7 @@ class TeamsController < ApplicationController
     end
 
     get '/teams/:id/edit' do
+        #  binding.pry
         @team = Team.find(params[:id])
         if @team.user_id != current_user.id
             erb :"nachos/nacho_stuff"
@@ -69,10 +86,12 @@ class TeamsController < ApplicationController
     end
 
     patch '/teams/:id' do
-        # binding.pry
+        binding.pry
         # VERIFY NAME AND LOCATION UPON SUBMISSION
         @team = Team.find(params[:id])
-        if @team
+        if params[:delete_button]
+            erb :"errors/delete_team"
+        elsif @team
             @team.update(
                 name: params[:name],
                 location: params[:location],
@@ -85,10 +104,9 @@ class TeamsController < ApplicationController
     end
 
     delete '/teams/:id' do
-        # @team = Team.find(params[:id])
-        # @user = User.find(@team.user_id)
-        # @team.delete
-        # redirect "/users/#{@user.id}"
+        @team = Team.find(params[:id])
+        @team.delete
+        redirect "/users/#{current_user.id}"
     end
 
 end

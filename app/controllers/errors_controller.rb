@@ -22,4 +22,9 @@ class ErrorsController < ApplicationController
         @user = current_user
         erb :'errors/max_teams'
     end
+
+    get '/new_team_error' do
+        @user = current_user
+        erb :'new_team_error'
+    end
 end

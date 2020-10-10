@@ -5,7 +5,7 @@ class PlayersController < ApplicationController
         erb :"players/index"
     end
 
-    get '/players/add_and_drop' do
+    get '/teams/:id/add_and_drop' do
         # binding.pry
         @team = Team.find_by_user_id(current_user.id)
         @qbs = Player.all.select{|p| p.position == "QB"}
