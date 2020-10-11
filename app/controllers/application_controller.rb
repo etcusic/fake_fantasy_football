@@ -22,7 +22,6 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      # binding.pry
       @user ||= User.find_by(id: session[:user_id])
     end
 
@@ -43,15 +42,12 @@ class ApplicationController < Sinatra::Base
     end
 
     def assign_players_to_team(player_id_array, team)
-      # binding.pry
-      player_id_array.each{|id| Player.find_by_id(id).update(team_id: team.id)}
+      if player_id_array.include?("invalid")
+        redirect "/invalid_team"
+      else
+        player_id_array.each{|id| Player.find_by_id(id).update(team_id: team.id)}
+      end
     end
-  
-    # def render path
-    #   content = File.read(File.expand_path(path))
-    #   t = ERB.new(content)
-    #   t.result(binding)
-    # end
 
   end
 

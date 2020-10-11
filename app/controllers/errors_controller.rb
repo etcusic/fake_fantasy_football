@@ -27,4 +27,9 @@ class ErrorsController < ApplicationController
         @user = current_user
         erb :'new_team_error'
     end
+
+    get '/invalid_team' do
+        @user = current_user
+        erb :'errors/invalid_team'
+    end
 end
