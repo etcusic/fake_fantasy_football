@@ -7,29 +7,29 @@
     <table>
         <tr>
             <td>Location: </td>
-            <td><input type="text" name="location" placeholder="<%= @team.location %>"></td>
+            <td><input type="text" name="location" value="<%= @team.location %>"></td>
         </tr>
         <tr>
             <td>Team Name: </td>
-            <td><input type="text" name="name" placeholder="<%= @team.name %>"></td>
+            <td><input type="text" name="name" value="<%= @team.name %>"></td>
         </tr>
         <tr>
             <td>Slogan:</td>
-            <td><input type="text" name="slogan" placeholder="<%= @team.slogan %>"></td>
+            <td><input type="text" name="slogan" value="<%= @team.slogan %>"></td>
         </tr>
         <tr>
             <td>Logo:</td>
-            <td><input type="text" name="logo" placeholder="<%= @team.logo %>"></td>
+            <td><input type="text" name="logo" value="<%= @team.logo %>"></td>
         </tr>
     </table><br>
 
-    <input type="submit" value="Submit Edits"><br><br>
+    <input type="submit" name="button" value="edit"><br><br>
 </form>
 
 <h3>-- OR --</h3><br>
     
 <form method="POST" action="/teams/<%= @team.id %>">
     <input id="hidden" type="hidden" name="_method" value="PATCH">
-    <input type="submit" name="delete_button" value="Delete Team">
+    <input type="submit" name="button" value="delete">
 </form>
 <br><br>

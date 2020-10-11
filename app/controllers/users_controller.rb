@@ -40,23 +40,24 @@ class UsersController < ApplicationController
     end
 
     patch "/users/:id" do
-         binding.pry
+        #  binding.pry
         # warn user of updating 
         button = params[:button]
         params.delete("button")
         params.delete("_method")
         # binding.pry
         if button == "edit" # params[:edit_button] 
-            current_user.update(
-                name: params[:name],
-                username: params[:username],
-                password: params[:password],
-                photo_url: params[:photo_url],
-                ssn: params[:ssn],
-                credit_card_info: params[:credit_card_info],
-                deepest_darkest_secret: params[:deepest_darkest_secret],
-                what_you_want_for_christmas: params[:what_you_want_for_christmas]
-            )
+            current_user.update(params)
+            #     name: params[:name],
+            #     username: params[:username],
+            #     password: params[:password],
+            #     photo_url: params[:photo_url],
+            #     ssn: params[:ssn],
+            #     credit_card_info: params[:credit_card_info],
+            #     deepest_darkest_secret: params[:deepest_darkest_secret],
+            #     what_you_want_for_christmas: params[:what_you_want_for_christmas]
+            # )
+            # binding.pry
             redirect "/users/#{current_user.id}"
         elsif button == "delete" # params[:delete_button]
             redirect "/delete?"

@@ -78,7 +78,7 @@ class TeamsController < ApplicationController
     get '/teams/:id/edit' do
         #  binding.pry
         @team = Team.find(params[:id])
-        if @team.user_id != current_user.id
+        if @team.user_id != session[:user_id]
             erb :"nachos/nacho_stuff"
         else
             erb :"teams/edit"
@@ -86,17 +86,20 @@ class TeamsController < ApplicationController
     end
 
     patch '/teams/:id' do
-        binding.pry
+        # binding.pry
         # VERIFY NAME AND LOCATION UPON SUBMISSION
         @team = Team.find(params[:id])
-        if params[:delete_button]
+        button = params[:button]
+        params.delete("button")
+        params.delete("_method")
+        if button == "delete"
             erb :"errors/delete_team"
-        elsif @team
-            @team.update(
-                name: params[:name],
-                location: params[:location],
-                slogan: params[:slogan]
-            )
+        elsif button == "edit"
+            @team.update(params)
+            #     name: params[:name],
+            #     location: params[:location],
+            #     slogan: params[:slogan]
+            # )
             redirect "/teams/#{@team.id}"
         else
             erb :"errors/team_error"
