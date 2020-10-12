@@ -6,6 +6,7 @@
         <tr>
             <td>Select Team:</td>
             <td><select name="id">
+                <option value="invalid">-- SELECT TEAM --</option>
                 <% @available_teams.each do |team| %>
                     <option value=<%= team.id %>><%= team.location %> <%= team.name %></option>
                 <% end %><br>

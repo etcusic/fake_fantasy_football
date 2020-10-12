@@ -17,17 +17,15 @@ class TeamsController < ApplicationController
     end
 
     post '/teams/new' do
-        # CHECK IF NO TEAM WAS SUBMITTED
-        # CHECK IF USER HAS MAX AMOUNT OF TEAMS!!!
-        # CHECK IF TEAM NAME OR LOCATION IS SAME ANOTHER ONE
-        @team = Team.find_by_id(params[:id])
-        @team.update(
-            user_id: current_user.id,
-            slogan: params[:slogan]
-        )
-        players_array = [params[:qb], params[:rb], params[:wr], params[:te], params[:k]]
-        assign_players_to_team(players_array, @team)
-        redirect "/teams/#{ @team.id }"
+        if invalid?
+            redirect '/invalid_team'
+        else
+            @team = Team.find_by_id(params[:id])
+            @team.update(user_id: current_user.id, slogan: params[:slogan])
+            players_array = [params[:qb], params[:rb], params[:wr], params[:te], params[:k]]
+            assign_players_to_team(players_array, @team)
+            redirect "/teams/#{ @team.id }"
+        end
     end
 
     get '/teams/new_from_scratch' do

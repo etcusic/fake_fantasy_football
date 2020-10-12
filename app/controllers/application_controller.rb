@@ -41,6 +41,10 @@ class ApplicationController < Sinatra::Base
       end
     end
 
+    def invalid?
+      params.has_value?("invalid")
+    end
+
     def assign_players_to_team(player_id_array, team)
       if player_id_array.include?("invalid")
         redirect "/invalid_team"
