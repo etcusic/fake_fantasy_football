@@ -32,4 +32,9 @@ class ErrorsController < ApplicationController
         @user = current_user
         erb :'errors/invalid_team'
     end
+
+    get '/edit_profile_error' do
+        @user = current_user
+        erb :'errors/edit_profile_error'
+    end
 end

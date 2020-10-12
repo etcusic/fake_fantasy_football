@@ -38,8 +38,11 @@
             <td><label>New Photo Url</label></td>
             <td><input type="text" name="photo_url" value="<%= @user.photo_url %>"></td>
         </tr>
-    </table><br><br>
-    <input type="submit" name="button" value="edit">
+    </table>
+
+    <h4 class="warning">WARNING: anything altered within the text fields <br> will be changed upon pressing the edit button.</h4>
+
+    <input type="submit" name="button" value="EDIT">
     
 </form>
 
@@ -47,6 +50,6 @@
     
 <form method="POST" action="/users/<%= @user.id %>">
     <input id="hidden" type="hidden" name="_method" value="PATCH">
-    <input type="submit" name="button" value="delete">
+    <input type="submit" name="button" value="DELETE">
 </form>
 <br><br>
