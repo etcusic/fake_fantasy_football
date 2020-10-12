@@ -22,8 +22,7 @@ class TeamsController < ApplicationController
         else
             @team = Team.find_by_id(params[:id])
             @team.update(user_id: current_user.id, slogan: params[:slogan])
-            players_array = [params[:qb], params[:rb], params[:wr], params[:te], params[:k]]
-            assign_players_to_team(players_array, @team)
+            assign_players_to_team(player_id_array, @team)
             redirect "/teams/#{ @team.id }"
         end
     end
@@ -37,7 +36,7 @@ class TeamsController < ApplicationController
         end
     end
 
-    post '/teams/new_from_scratch' do        
+    post '/teams/new_from_scratch' do   
         @team = Team.new(
                     name: params[:name],
                     location: params[:location],
@@ -45,11 +44,11 @@ class TeamsController < ApplicationController
                     logo: "/logos/your_logo_here.png",
                     user_id: current_user.id
                 )
-        players_array = [params[:qb], params[:rb], params[:wr], params[:te], params[:k]]
-        if params[:name] == "" || params[:location] == "" || players_array.include?("invalid")
+
+        if invalid_team? || invalid? 
             redirect "/invalid_team"
         elsif @team.save
-            assign_players_to_team(players_array, @team)
+            assign_players_to_team(player_id_array, @team)
             redirect "/teams/#{ @team.id }"
         else
             redirect "/invalid_team"
@@ -78,15 +77,14 @@ class TeamsController < ApplicationController
     end
 
     patch '/teams/:id' do
-        # CHECK VERIFICATIONS
         @team = Team.find(params[:id])
-        button = params[:button]
-        params.delete("button")
-        params.delete("_method")
-        if button == "delete"
+        @team.name = params[:name]
+        @team.location = params[:location]
+        @team.slogan = params[:slogan]
+        if params[:button] == "DELETE"
             erb :"errors/delete_team"
-        elsif button == "edit"
-            @team.update(params)
+        elsif params[:button] == "EDIT" && @team.save
+            assign_players_to_team(player_id_array, @team)
             redirect "/teams/#{@team.id}"
         else
             erb :"errors/team_error"
@@ -95,6 +93,7 @@ class TeamsController < ApplicationController
 
     delete '/teams/:id' do
         @team = Team.find(params[:id])
+        Player.all.where(team_id: @team.id).each{|player| player.update(team_id: nil)}
         @team.delete
         redirect "/users/#{current_user.id}"
     end

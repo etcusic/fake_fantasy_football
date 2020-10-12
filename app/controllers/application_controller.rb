@@ -45,11 +45,24 @@ class ApplicationController < Sinatra::Base
       params.has_value?("invalid")
     end
 
-    def assign_players_to_team(player_id_array, team)
-      if player_id_array.include?("invalid")
+    def same_name?
+      !Team.find_by_name(params[:name])
+    end
+
+    def invalid_team?
+      params[:name].strip == "" || params[:location].strip == "" || same_name?
+    end
+
+    def player_id_array
+      array = [params[:qb], params[:rb], params[:wr], params[:te], params[:k]]
+    end
+
+    def assign_players_to_team(player_array, team)
+      if player_array.include?("invalid")
         redirect "/invalid_team"
       else
-        player_id_array.each{|id| Player.find_by_id(id).update(team_id: team.id)}
+        Player.all.where(team_id: @team.id).each{|p| p.update(team_id: nil)}
+        player_array.each{|id| Player.find_by_id(id).update(team_id: team.id)}
       end
     end
 

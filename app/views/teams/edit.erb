@@ -17,21 +17,17 @@
             <td>Slogan:</td>
             <td><input type="text" name="slogan" value="<%= @team.slogan %>"></td>
         </tr>
-        <tr>
-            <td>Logo:</td>
-            <td><input type="text" name="logo" value="<%= @team.logo %>"></td>
-        </tr>
     </table><br>
 
     <%= erb :"players/availabe_players" %><br>
 
-    <input type="submit" name="button" value="edit"><br><br>
+    <input type="submit" name="button" value="EDIT"><br><br>
 </form>
 
 <h3>-- OR --</h3><br>
     
 <form method="POST" action="/teams/<%= @team.id %>">
     <input id="hidden" type="hidden" name="_method" value="PATCH">
-    <input type="submit" name="button" value="delete">
+    <input type="submit" name="button" value="DELETE">
 </form>
 <br><br>

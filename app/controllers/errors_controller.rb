@@ -37,4 +37,5 @@ class ErrorsController < ApplicationController
         @user = current_user
         erb :'errors/edit_profile_error'
     end
+
 end
