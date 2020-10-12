@@ -1,7 +1,6 @@
 class TeamsController < ApplicationController
 
     get '/teams' do
-        #  binding.pry
         @users = User.all
         @teams = Team.all
         erb :"teams/index"
@@ -40,23 +39,24 @@ class TeamsController < ApplicationController
         end
     end
 
-    post '/teams/new_from_scratch' do
-        binding.pry
-        # CHECK IF CORRECT AMOUNT OF PLAYERS/ATTRS SUBMITTED
-        @team = Team.create(
-            name: params[:name],
-            location: params[:location],
-            slogan: params[:slogan],
-            logo: "/logos/your_logo_here.png",
-            user_id: current_user.id
-        )
+    post '/teams/new_from_scratch' do        
+        @team = Team.new(
+                    name: params[:name],
+                    location: params[:location],
+                    slogan: params[:slogan],
+                    logo: "/logos/your_logo_here.png",
+                    user_id: current_user.id
+                )
         players_array = [params[:qb], params[:rb], params[:wr], params[:te], params[:k]]
-        if players_array.include?("invalid")
-            redirect "/errors/team_error"
-        else
+        if params[:name] == "" || params[:location] == "" || players_array.include?("invalid")
+            redirect "/invalid_team"
+        elsif @team.save
             assign_players_to_team(players_array, @team)
+            redirect "/teams/#{ @team.id }"
+        else
+            redirect "/invalid_team"
         end
-        redirect "/teams/#{ @team.id }"
+        
     end
 
     get '/teams/:id' do
@@ -70,6 +70,8 @@ class TeamsController < ApplicationController
 
     get '/teams/:id/edit' do
         @team = Team.find(params[:id])
+        @players = Player.where(team_id: @team.id)
+        @available_players = Player.all.select{|player| !player.team_id}
         if @team.user_id != session[:user_id]
             erb :"nachos/nacho_stuff"
         else
@@ -78,7 +80,7 @@ class TeamsController < ApplicationController
     end
 
     patch '/teams/:id' do
-        # VERIFY NAME AND LOCATION UPON SUBMISSION
+        # CHECK VERIFICATIONS
         @team = Team.find(params[:id])
         button = params[:button]
         params.delete("button")

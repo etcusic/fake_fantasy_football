@@ -40,6 +40,7 @@ class UsersController < ApplicationController
     end
 
     patch "/users/:id" do
+        # CHECK FOR VALIDATIONS
         #  binding.pry
         # warn user of updating 
         button = params[:button]

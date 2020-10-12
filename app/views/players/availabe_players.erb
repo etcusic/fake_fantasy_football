@@ -2,7 +2,10 @@
     <tr>
         <td>Quarterback:</td>
         <td><select name="qb">
-            <option value="invalid">-- Select QB --</option>
+            <% if @team %>
+                <option value=<%= @players[0].id %>>Current: <%= @players[0].name %> - <%= @players[0].school %></option> 
+            <% end %>
+            <option value="invalid">-- Select New QB --</option>
             <% @available_players.select{|p| p.position == "QB"} .each do |player| %>
                 <option value=<%= player.id %>><%= player.name %> - <%= player.school %></option>
             <% end %><br>
@@ -11,7 +14,10 @@
     <tr>
         <td>Running Back:</td>
         <td><select name="rb">
-            <option value="invalid">-- Select RB --</option>
+            <% if @team %>
+                <option value=<%= @players[1].id %>>Current: <%= @players[1].name %> - <%= @players[1].school %></option> 
+            <% end %>
+            <option value="invalid">-- Select New RB --</option>
             <% @available_players.select{|p| p.position == "RB"} .each do |player| %>
                 <option value=<%= player.id %>><%= player.name %> - <%= player.school %></option>
             <% end %><br>
@@ -20,7 +26,10 @@
     <tr>
         <td>Wide Receiver:</td>
         <td><select name="wr">
-            <option value="invalid">-- Select WR --</option>
+            <% if @team %>
+                <option value=<%= @players[2].id %>>Current: <%= @players[2].name %> - <%= @players[2].school %></option> 
+            <% end %>
+            <option value="invalid">-- Select New WR --</option>
             <% @available_players.select{|p| p.position == "WR"} .each do |player| %>
                 <option value=<%= player.id %>><%= player.name %> - <%= player.school %></option>
             <% end %><br>
@@ -29,7 +38,10 @@
     <tr>
         <td>Tight End:</td>
         <td><select name="te">
-            <option value="invalid">-- Select TE --</option>
+            <% if @team %>
+                <option value=<%= @players[3].id %>>Current: <%= @players[3].name %> - <%= @players[3].school %></option> 
+            <% end %>
+            <option value="invalid">-- Select New TE --</option>
             <% @available_players.select{|p| p.position == "TE"} .each do |player| %>
                 <option value=<%= player.id %>><%= player.name %> - <%= player.school %></option>
             <% end %><br>
@@ -38,7 +50,10 @@
     <tr>
         <td>Kicker:</td>
         <td><select name="k">
-            <option value="invalid">-- Select Kicker --</option>
+            <% if @team %>
+                <option value=<%= @players[4].id %>>Current: <%= @players[4].name %> - <%= @players[4].school %></option> 
+            <% end %>
+            <option value="invalid">-- Select New Kicker --</option>
             <% @available_players.select{|p| p.position == "K"} .each do |player| %>
                 <option value=<%= player.id %>><%= player.name %> - <%= player.school %></option>
             <% end %><br>
@@ -46,3 +61,4 @@
     </tr>
         
 </table>
+
