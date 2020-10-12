@@ -11,12 +11,12 @@ class UsersController < ApplicationController
     post '/users' do
         @user = User.new(params)
         if params[:name] == "" || params[:username] == "" || params[:password] == ""
-            redirect '/signup_error'       
+            redirect '/errors/signup'       
         elsif @user && @user.save   
             session[:user_id] = @user.id
             redirect "/users/#{@user.id}"
         else
-            redirect '/signup_error'
+            redirect '/errors/signup'
         end
     end
 
@@ -48,9 +48,9 @@ class UsersController < ApplicationController
         if button == "EDIT" && current_user.update(params)
             redirect "/users/#{current_user.id}"
         elsif button == "DELETE" 
-            redirect "/delete?"
+            redirect '/errors/delete?'
         else
-            redirect "/edit_profile_error"
+            redirect '/errors/edit_profile'
         end
     end
 

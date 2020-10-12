@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
             redirect "/users/#{@user.id}"
         else   
         # Need to develop errors for redirection
-            redirect '/login_error'
+            redirect '/errors/login'
         end
     end
 

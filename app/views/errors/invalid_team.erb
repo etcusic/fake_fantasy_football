@@ -9,4 +9,8 @@
 
 <h4>Note: Team cannot have same name or location as an existing team</h4>
 
-<a href="/teams/new"><button>Create New Team</button></a><br><br>
+<% if @team %>
+    <a href="/teams/<%= @team.id %>"><button>Team Page</button></a><br><br>
+<% else %>
+    <a href="/teams/new"><button>Create New Team</button></a><br><br>
+<% end %>

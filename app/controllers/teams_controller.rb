@@ -9,7 +9,7 @@ class TeamsController < ApplicationController
     get '/teams/new' do
         @available_players = Player.all.select{|player| !player.team_id}
         if current_user.maximum_number_of_teams?
-            redirect '/max_teams'
+            redirect '/errors/max_teams'
         else
             @available_teams = Team.all.select{|team| !team.user_id}
             erb :"teams/new"
@@ -18,7 +18,7 @@ class TeamsController < ApplicationController
 
     post '/teams/new' do
         if invalid?
-            redirect '/invalid_team'
+            redirect '/errors/invalid_team'
         else
             @team = Team.find_by_id(params[:id])
             @team.update(user_id: current_user.id, slogan: params[:slogan])
@@ -29,7 +29,7 @@ class TeamsController < ApplicationController
 
     get '/teams/new_from_scratch' do
         if current_user.maximum_number_of_teams?
-            redirect '/max_teams'
+            redirect '/errors/max_teams'
         else
             @available_players = Player.all.select{|player| !player.team_id}
             erb :"teams/new_from_scratch"
@@ -46,12 +46,12 @@ class TeamsController < ApplicationController
                 )
 
         if invalid_team? || invalid? 
-            redirect "/invalid_team"
+            redirect '/errors/invalid_team'
         elsif @team.save
             assign_players_to_team(player_id_array, @team)
             redirect "/teams/#{ @team.id }"
         else
-            redirect "/invalid_team"
+            redirect '/errors/invalid_team'
         end
         
     end
@@ -87,7 +87,7 @@ class TeamsController < ApplicationController
             assign_players_to_team(player_id_array, @team)
             redirect "/teams/#{@team.id}"
         else
-            erb :"errors/team_error"
+            erb :"errors/invalid_team"
         end
     end
 
