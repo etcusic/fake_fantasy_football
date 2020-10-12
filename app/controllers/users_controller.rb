@@ -10,10 +10,11 @@ class UsersController < ApplicationController
     
     post '/users' do
         @user = User.new(params)
-        if params[:name] == "" || params[:username] == "" || params[:password] == ""
+        if params[:name].strip == "" || params[:username].strip == "" || params[:password].strip == ""
             redirect '/errors/signup'       
         elsif @user && @user.save   
             session[:user_id] = @user.id
+            @user.update(photo_url: "/default_user_photo.jpeg")
             redirect "/users/#{@user.id}"
         else
             redirect '/errors/signup'
@@ -32,7 +33,7 @@ class UsersController < ApplicationController
 
     get '/users/:id/edit' do
         if not_users_stuff?  
-            erb :"nachos/nacho_stuff"
+            redirect '/errors/nacho_stuff'
         else
             @user = User.find(params[:id])
             erb :"users/edit"

@@ -1,15 +1,15 @@
 class ErrorsController < ApplicationController
 
     get '/errors/nacho_stuff' do
-        erb :'nashos/cleaver'
+        erb :'nachos/nacho_stuff'
     end
 
     get '/errors/login' do
-        erb :'errors/login_error'
+        erb :'errors/login'
     end
 
     get '/errors/signup' do
-        erb :'errors/signup_error'
+        erb :'errors/signup'
     end
 
     get '/errors/delete?' do
@@ -29,7 +29,7 @@ class ErrorsController < ApplicationController
 
     get '/errors/edit_profile' do
         @user = current_user
-        erb :'errors/edit_profile_error'
+        erb :'errors/edit_profile'
     end
 
 end
