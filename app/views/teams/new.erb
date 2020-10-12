@@ -17,19 +17,27 @@
             <td>Add Slogan: </td>  
             <td><input type="text" name="slogan"></label></td>
         </tr>
-    </table><br>
-
-<h2>Add Players:</h2>
+    </table>
     
     <%= erb :"players/availabe_players" %><br>
 
-    <input type="submit" value="Submit"><br>
+    <input type="submit" name="button" value="Adopt Team"><br>
+
+</form><br><br>
+
+<h2> -- OR -- </h2><br>
+
+<h2>CREATE TEAM FROM SCRATCH:</h2>
+<form method="POST" action="/teams/new">
+    <table>
+        <tr><td>Name: </td>  <td><input type="text" name="name"></td></tr>
+        <tr><td>Location: </td>  <td><input type="text" name="location"></td></tr>
+        <tr><td>Slogan: </td>  <td><input type="text" name="slogan"></td></tr>
+    </table>
+    
+    <%= erb :"players/availabe_players" %><br>
+
+    <input type="submit" name="button" value="Create from Scratch"><br><br>
 
 </form><br>
 
-<h3> -- OR -- </h3><br>
-
-
-<a href="/teams/new_from_scratch"><button>Create from Scratch</button></a><br><br>
-
-<div class="add-players">

@@ -46,11 +46,11 @@ class ApplicationController < Sinatra::Base
     end
 
     def same_name?
-      !Team.find_by_name(params[:name])
+      Team.find_by_name(params[:name])
     end
 
-    def invalid_team?
-      params[:name].strip == "" || params[:location].strip == "" || same_name?
+    def valid_team?
+      params[:name].strip != "" || params[:location].strip != "" || !same_name?
     end
 
     def player_id_array
@@ -61,9 +61,35 @@ class ApplicationController < Sinatra::Base
       if player_array.include?("invalid")
         redirect "/invalid_team"
       else
-        Player.all.where(team_id: @team.id).each{|p| p.update(team_id: nil)}
+        Player.all.where(team_id: team.id).each{|p| p.update(team_id: nil)}
         player_array.each{|id| Player.find_by_id(id).update(team_id: team.id)}
       end
+    end
+
+    def adopt_team(params)
+      team = Team.find_by_id(params[:id])
+      team.update(user_id: current_user.id, slogan: params[:slogan])
+      assign_players_to_team(player_id_array, team)
+    end
+
+    def create_team_from_scratch(params)
+        team = Team.new(
+          name: params[:name],
+          location: params[:location],
+          slogan: params[:slogan],
+          logo: "/logos/your_logo_here.png",
+          user_id: current_user.id
+        )
+        
+        team.save
+        assign_players_to_team(player_id_array, team)
+        team
+
+
+        # redirect "/teams/#{ @team.id }"
+        # else
+        # redirect '/errors/invalid_team'
+        # end
     end
 
   end

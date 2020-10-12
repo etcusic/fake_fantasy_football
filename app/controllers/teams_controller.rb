@@ -19,41 +19,15 @@ class TeamsController < ApplicationController
     post '/teams/new' do
         if invalid?
             redirect '/errors/invalid_team'
-        else
-            @team = Team.find_by_id(params[:id])
-            @team.update(user_id: current_user.id, slogan: params[:slogan])
-            assign_players_to_team(player_id_array, @team)
-            redirect "/teams/#{ @team.id }"
-        end
-    end
-
-    get '/teams/new_from_scratch' do
-        if current_user.maximum_number_of_teams?
-            redirect '/errors/max_teams'
-        else
-            @available_players = Player.all.select{|player| !player.team_id}
-            erb :"teams/new_from_scratch"
-        end
-    end
-
-    post '/teams/new_from_scratch' do   
-        @team = Team.new(
-                    name: params[:name],
-                    location: params[:location],
-                    slogan: params[:slogan],
-                    logo: "/logos/your_logo_here.png",
-                    user_id: current_user.id
-                )
-
-        if invalid_team? || invalid? 
-            redirect '/errors/invalid_team'
-        elsif @team.save
-            assign_players_to_team(player_id_array, @team)
-            redirect "/teams/#{ @team.id }"
+        elsif params[:button] == "Adopt Team"
+            adopt_team(params)
+            redirect "/teams/#{ params[:id] }"
+        elsif params[:button] == "Create from Scratch" && valid_team?
+            team = create_team_from_scratch(params)
+            redirect "/teams/#{ team.id }"
         else
             redirect '/errors/invalid_team'
         end
-        
     end
 
     get '/teams/:id' do
